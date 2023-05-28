@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.springcloud.dao.PaymentDao">
+    <!--    useGeneratedKeys="true"  表示 新增的记录 主键回填到实体对象中
+            keyProperty="id"         表示 主键对应 实体对象的 哪个属性
+    -->
+    <insert id="create" parameterType="Payment" useGeneratedKeys="true" keyProperty="id">
+        insert into payment(serial) values (#{serial});
+    </insert>
+
+    <resultMap id="BaseResultMap" type="Payment">
+        <!--  jdbcType="BIGINT" 指对应数据库的类型 设定了mybatis就不用去推断,减少性能损耗  注意:一定要区分小写 -->
+        <id column="id" property="id" jdbcType="BIGINT"></id>
+        <result column="serial" property="serial" jdbcType="VARCHAR"></result>
+    </resultMap>
+
+    <select id="getPaymentById" parameterType="Long" resultMap="BaseResultMap">
+        select * from payment where id=#{id}
+    </select>
+</mapper>
